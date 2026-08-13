@@ -1,0 +1,165 @@
+﻿2026-08-13T07:52:48.2161155Z ##[group]Run gradle/gradle-build-action@v3
+2026-08-13T07:52:48.2161496Z with:
+2026-08-13T07:52:48.2161711Z   arguments: assembleDebug
+2026-08-13T07:52:48.2161957Z   cache-disabled: false
+2026-08-13T07:52:48.2162189Z   cache-read-only: false
+2026-08-13T07:52:48.2162425Z   cache-write-only: false
+2026-08-13T07:52:48.2162669Z   cache-overwrite-existing: false
+2026-08-13T07:52:48.2162977Z   gradle-home-cache-includes: caches
+notifications
+
+2026-08-13T07:52:48.2163321Z   gradle-home-cache-cleanup: false
+2026-08-13T07:52:48.2163589Z   add-job-summary: always
+2026-08-13T07:52:48.2163845Z   add-job-summary-as-pr-comment: never
+2026-08-13T07:52:48.2164125Z   dependency-graph: disabled
+2026-08-13T07:52:48.2164408Z   dependency-graph-continue-on-failure: true
+2026-08-13T07:52:48.2164922Z   build-scan-publish: false
+2026-08-13T07:52:48.2165172Z   validate-wrappers: false
+2026-08-13T07:52:48.2165410Z   generate-job-summary: true
+2026-08-13T07:52:48.2165875Z   gradle-home-cache-strict-match: false
+2026-08-13T07:52:48.2166204Z   workflow-job-context: null
+2026-08-13T07:52:48.2168654Z   github-token: ***
+2026-08-13T07:52:48.2168871Z env:
+2026-08-13T07:52:48.2169178Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-08-13T07:52:48.2169696Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-08-13T07:52:48.2170105Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-08-13T07:52:48.2170412Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-08-13T07:52:48.2170694Z ##[endgroup]
+2026-08-13T07:52:48.2228200Z ##[start-action display=Setup Gradle;id=__gradle_gradle-build-action.setup-gradle]
+2026-08-13T07:52:48.2305388Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-13T07:52:48.2306670Z ##[group]Run gradle/actions/setup-gradle@v3.5.0
+2026-08-13T07:52:48.2306986Z with:
+2026-08-13T07:52:48.2307198Z   cache-disabled: false
+2026-08-13T07:52:48.2307429Z   cache-read-only: false
+2026-08-13T07:52:48.2307662Z   cache-write-only: false
+2026-08-13T07:52:48.2307904Z   cache-overwrite-existing: false
+2026-08-13T07:52:48.2308211Z   gradle-home-cache-includes: caches
+notifications
+
+2026-08-13T07:52:48.2308547Z   gradle-home-cache-cleanup: false
+2026-08-13T07:52:48.2308809Z   add-job-summary: always
+2026-08-13T07:52:48.2309059Z   add-job-summary-as-pr-comment: never
+2026-08-13T07:52:48.2309338Z   dependency-graph: disabled
+2026-08-13T07:52:48.2309613Z   dependency-graph-continue-on-failure: true
+2026-08-13T07:52:48.2309912Z   build-scan-publish: false
+2026-08-13T07:52:48.2310171Z   validate-wrappers: false
+2026-08-13T07:52:48.2310417Z   generate-job-summary: true
+2026-08-13T07:52:48.2310662Z   arguments: assembleDebug
+2026-08-13T07:52:48.2310922Z   gradle-home-cache-strict-match: false
+2026-08-13T07:52:48.2311205Z   workflow-job-context: null
+2026-08-13T07:52:48.2313653Z   github-token: ***
+2026-08-13T07:52:48.2313874Z env:
+2026-08-13T07:52:48.2314178Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-08-13T07:52:48.2314904Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-08-13T07:52:48.2315321Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-08-13T07:52:48.2315623Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-08-13T07:52:48.2315938Z   GRADLE_ACTION_ID: gradle/gradle-build-action
+2026-08-13T07:52:48.2316220Z ##[endgroup]
+2026-08-13T07:52:48.4239808Z (node:2666) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-08-13T07:52:48.4241807Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-08-13T07:52:48.5158327Z Merged default JDK locations into /home/runner/.m2/toolchains.xml
+2026-08-13T07:52:48.5161322Z ##[group]Restore Gradle state from cache
+2026-08-13T07:52:48.6070719Z ##[warning]Failed to restore gradle-home-v1|Linux|build[ddef187d23c5c0a012a82b60c8f7590e]-3b194a7e5b29377bad34ce2d874711aceafbf74c: Error: Cache service responded with 400
+2026-08-13T07:52:48.6141269Z Gradle User Home cache not found. Will initialize empty.
+2026-08-13T07:52:48.6142170Z ##[endgroup]
+2026-08-13T07:52:48.6160715Z [command]/home/runner/work/covefit-shell/covefit-shell/gradlew assembleDebug
+2026-08-13T07:52:48.7438210Z Downloading https://services.gradle.org/distributions/gradle-8.9-bin.zip
+2026-08-13T07:52:50.2606005Z ............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
+2026-08-13T07:52:51.4869216Z 
+2026-08-13T07:52:51.4876861Z Welcome to Gradle 8.9!
+2026-08-13T07:52:51.4877605Z 
+2026-08-13T07:52:51.4878614Z Here are the highlights of this release:
+2026-08-13T07:52:51.4880138Z  - Enhanced Error and Warning Messages
+2026-08-13T07:52:51.4880928Z  - IDE Integration Improvements
+2026-08-13T07:52:51.4881524Z  - Daemon JVM Information
+2026-08-13T07:52:51.4881805Z 
+2026-08-13T07:52:51.4882178Z For more details see https://docs.gradle.org/8.9/release-notes.html
+2026-08-13T07:52:51.4882501Z 
+2026-08-13T07:52:51.6886268Z Starting a Gradle Daemon (subsequent builds will be faster)
+2026-08-13T07:53:20.0902781Z > Task :app:preBuild UP-TO-DATE
+2026-08-13T07:53:20.0926399Z > Task :app:preDebugBuild UP-TO-DATE
+2026-08-13T07:53:20.1879977Z > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+2026-08-13T07:53:20.1895516Z > Task :app:javaPreCompileDebug
+2026-08-13T07:53:20.1896439Z > Task :app:checkDebugAarMetadata
+2026-08-13T07:53:20.1906005Z > Task :app:generateDebugResValues
+2026-08-13T07:53:20.2896247Z > Task :app:mapDebugSourceSetPaths
+2026-08-13T07:53:20.2915969Z > Task :app:generateDebugResources
+2026-08-13T07:53:20.4861251Z > Task :app:packageDebugResources
+2026-08-13T07:53:20.5861087Z > Task :app:mergeDebugResources
+2026-08-13T07:53:21.6873788Z > Task :app:createDebugCompatibleScreenManifests
+2026-08-13T07:53:21.6896619Z > Task :app:extractDeepLinksDebug
+2026-08-13T07:53:21.6897744Z > Task :app:parseDebugLocalResources
+2026-08-13T07:53:21.7863841Z 
+2026-08-13T07:53:21.7870744Z > Task :app:processDebugMainManifest
+2026-08-13T07:53:21.7872700Z package="com.covefit.shell" found in source AndroidManifest.xml: /home/runner/work/covefit-shell/covefit-shell/app/src/main/AndroidManifest.xml.
+2026-08-13T07:53:21.7875219Z Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+2026-08-13T07:53:21.7877715Z Recommendation: remove package="com.covefit.shell" from the source AndroidManifest.xml: /home/runner/work/covefit-shell/covefit-shell/app/src/main/AndroidManifest.xml.
+2026-08-13T07:53:22.0879173Z 
+2026-08-13T07:53:22.0905600Z > Task :app:processDebugManifest
+2026-08-13T07:53:22.0918940Z > Task :app:mergeDebugShaders
+2026-08-13T07:53:22.0919880Z > Task :app:compileDebugShaders NO-SOURCE
+2026-08-13T07:53:22.0920835Z > Task :app:generateDebugAssets UP-TO-DATE
+2026-08-13T07:53:22.1861128Z > Task :app:mergeDebugAssets
+2026-08-13T07:53:22.1862146Z > Task :app:compressDebugAssets
+2026-08-13T07:53:22.1863848Z > Task :app:processDebugManifestForPackage
+2026-08-13T07:53:22.5887471Z > Task :app:desugarDebugFileDependencies
+2026-08-13T07:53:22.5955853Z > Task :app:processDebugJavaRes NO-SOURCE
+2026-08-13T07:53:22.6861512Z > Task :app:checkDebugDuplicateClasses
+2026-08-13T07:53:22.6903459Z > Task :app:mergeDebugJniLibFolders
+2026-08-13T07:53:22.6932397Z > Task :app:mergeLibDexDebug
+2026-08-13T07:53:22.6933502Z > Task :app:mergeExtDexDebug
+2026-08-13T07:53:22.6965350Z > Task :app:mergeDebugNativeLibs NO-SOURCE
+2026-08-13T07:53:22.6995434Z > Task :app:stripDebugDebugSymbols NO-SOURCE
+2026-08-13T07:53:22.7860200Z > Task :app:mergeDebugJavaResource
+2026-08-13T07:53:22.7861339Z > Task :app:processDebugResources
+2026-08-13T07:53:23.5861138Z > Task :app:validateSigningDebug
+2026-08-13T07:53:26.9895348Z 
+2026-08-13T07:53:26.9898026Z > Task :app:compileDebugJavaWithJavac
+2026-08-13T07:53:26.9899566Z /home/runner/work/covefit-shell/covefit-shell/app/src/main/java/com/covefit/shell/MainActivity.java:4: error: cannot find symbol
+2026-08-13T07:53:26.9900263Z import android.net.ProxyConfig;
+2026-08-13T07:53:26.9900576Z                   ^
+2026-08-13T07:53:26.9900843Z   symbol:   class ProxyConfig
+2026-08-13T07:53:26.9901139Z   location: package android.net
+2026-08-13T07:53:26.9901847Z /home/runner/work/covefit-shell/covefit-shell/app/src/main/java/com/covefit/shell/MainActivity.java:5: error: cannot find symbol
+2026-08-13T07:53:26.9902503Z import android.net.ProxyController;
+2026-08-13T07:53:26.9902790Z                   ^
+2026-08-13T07:53:26.9903049Z   symbol:   class ProxyController
+2026-08-13T07:53:26.9903370Z   location: package android.net
+2026-08-13T07:53:27.0868348Z /home/runner/work/covefit-shell/covefit-shell/app/src/main/java/com/covefit/shell/MainActivity.java:39: error: cannot find symbol
+2026-08-13T07:53:27.0885713Z         } catch (IOException e) {
+2026-08-13T07:53:27.0886468Z                  ^
+2026-08-13T07:53:27.0887102Z   symbol:   class IOException
+2026-08-13T07:53:27.0887730Z   location: class MainActivity
+2026-08-13T07:53:27.0888977Z /home/runner/work/covefit-shell/covefit-shell/app/src/main/java/com/covefit/shell/MainActivity.java:64: error: cannot find symbol
+2026-08-13T07:53:27.0906253Z             ProxyConfig config = new ProxyConfig.Builder()
+2026-08-13T07:53:27.0907394Z             ^
+2026-08-13T07:53:27.0931817Z   symbol:   class ProxyConfig
+2026-08-13T07:53:27.0957405Z   location: class MainActivity
+2026-08-13T07:53:27.0963634Z /home/runner/work/covefit-shell/covefit-shell/app/src/main/java/com/covefit/shell/MainActivity.java:64: error: package ProxyConfig does not exist
+2026-08-13T07:53:27.0970147Z             ProxyConfig config = new ProxyConfig.Builder()
+2026-08-13T07:53:27.0970833Z                                                 ^
+2026-08-13T07:53:27.0972178Z /home/runner/work/covefit-shell/covefit-shell/app/src/main/java/com/covefit/shell/MainActivity.java:68: error: cannot find symbol
+2026-08-13T07:53:27.0973598Z             ProxyController.getInstance().setProxyOverride(config, executor,
+2026-08-13T07:53:27.0974263Z             ^
+2026-08-13T07:53:27.0974913Z   symbol:   variable ProxyController
+2026-08-13T07:53:27.0975463Z   location: class MainActivity
+2026-08-13T07:53:27.0976815Z Note: /home/runner/work/covefit-shell/covefit-shell/app/src/main/java/com/covefit/shell/MainActivity.java uses or overrides a deprecated API.
+2026-08-13T07:53:27.0978154Z Note: Recompile with -Xlint:deprecation for details.
+2026-08-13T07:53:27.0978687Z 6 errors
+2026-08-13T07:53:27.1865344Z 
+2026-08-13T07:53:27.1893866Z > Task :app:compileDebugJavaWithJavac FAILED
+2026-08-13T07:53:27.1906247Z 
+2026-08-13T07:53:27.1915815Z FAILURE: Build failed with an exception.
+2026-08-13T07:53:27.1922241Z 
+2026-08-13T07:53:27.1949672Z * What went wrong:
+2026-08-13T07:53:27.1953348Z Execution failed for task ':app:compileDebugJavaWithJavac'.
+2026-08-13T07:53:27.1954297Z > Compilation failed; see the compiler error output for details.
+2026-08-13T07:53:27.1955090Z 
+2026-08-13T07:53:27.1955233Z * Try:
+2026-08-13T07:53:27.1955922Z > Run with --info option to get more log output.
+2026-08-13T07:53:27.1961150Z > Run with --scan to get full insights.
+2026-08-13T07:53:27.1961722Z 
+2026-08-13T07:53:27.1962173Z BUILD FAILED in 38s
+2026-08-13T07:53:27.1962978Z 24 actionable tasks: 24 executed
+2026-08-13T07:53:27.6337915Z ##[error]Gradle build failed: see console output for details
+2026-08-13T07:53:27.6422114Z ##[end-action id=__gradle_gradle-build-action.setup-gradle;outcome=failure;conclusion=failure;duration_ms=39419]

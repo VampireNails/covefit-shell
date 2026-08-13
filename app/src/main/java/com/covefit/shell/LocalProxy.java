@@ -88,17 +88,17 @@ public class LocalProxy extends Thread {
                 int destPort = hp.length > 1 ? Integer.parseInt(hp[1]) : 443;
                 if (needsProxy(host)) {
                     Log.d(TAG, "CONNECT(proxy) " + host);
-                    tunnel(client, cos, cis, V2RAY_HOST, V2RAY_PORT);
+                    chainViaProxy(client, cos, cis, host, destPort);
                 } else {
                     Log.d(TAG, "CONNECT(direct) " + host);
-                    tunnel(client, cos, cis, host, destPort);
+                    directTunnel(client, cos, cis, host, destPort);
                 }
             } else {
                 // 明文 HTTP（PWA 为 HTTPS，此分支极少触发，仅作兜底）
                 String host = hostLine != null ? hostLine.split(":")[0] : "";
                 int destPort = 80;
                 if (needsProxy(host)) {
-                    forwardHttp(client, cos, cis, V2RAY_HOST, V2RAY_PORT, firstLine, headers);
+                    chainViaProxyHttp(client, cos, cis, host, destPort, firstLine, headers);
                 } else {
                     forwardHttp(client, cos, cis, host, destPort, firstLine, headers);
                 }
@@ -115,14 +115,48 @@ public class LocalProxy extends Thread {
                 && (host.endsWith(".workers.dev") || "workers.dev".equals(host));
     }
 
-    /** HTTPS CONNECT 隧道：先回 200，再双向拷贝 */
-    private void tunnel(Socket client, OutputStream cos, InputStream cis, String host, int port)
+    /** 直连隧道：直接连目标，回 200 后双向拷贝 */
+    private void directTunnel(Socket client, OutputStream cos, InputStream cis, String host, int port)
             throws IOException {
         Socket target = new Socket();
         target.connect(new InetSocketAddress(host, port), 10000);
         cos.write("HTTP/1.1 200 Connection Established\r\n\r\n".getBytes(StandardCharsets.UTF_8));
         cos.flush();
         pipe(cis, client.getOutputStream(), target.getInputStream(), target.getOutputStream(), client, target);
+    }
+
+    /**
+     * 经 v2rayNG HTTP 代理的隧道链：
+     *  客户端 CONNECT host:port → 我们向 v2rayNG(127.0.0.1:10808) 再发一次 CONNECT，
+     *  待其回 200 后，把 v2rayNG 的 200 透传给客户端，再双向拷贝。
+     * （v2rayNG 仅代理端口是 HTTP 代理，不是裸 TCP 转发，必须先做代理握手。）
+     */
+    private void chainViaProxy(Socket client, OutputStream cos, InputStream cis, String host, int port)
+            throws IOException {
+        Socket upstream = new Socket();
+        upstream.connect(new InetSocketAddress(V2RAY_HOST, V2RAY_PORT), 10000);
+        OutputStream uos = upstream.getOutputStream();
+        String connectReq = "CONNECT " + host + ":" + port + " HTTP/1.1\r\n"
+                + "Host: " + host + ":" + port + "\r\n\r\n";
+        uos.write(connectReq.getBytes(StandardCharsets.UTF_8));
+        uos.flush();
+
+        InputStream uis = upstream.getInputStream();
+        String statusLine = readLine(uis);
+        String h;
+        while ((h = readLine(uis)) != null && !h.isEmpty()) { /* 跳过上游响应头 */ }
+
+        if (statusLine != null && statusLine.contains("200")) {
+            cos.write("HTTP/1.1 200 Connection Established\r\n\r\n".getBytes(StandardCharsets.UTF_8));
+            cos.flush();
+            pipe(cis, client.getOutputStream(), uis, upstream.getOutputStream(), client, upstream);
+        } else {
+            Log.e(TAG, "upstream proxy rejected CONNECT: " + statusLine);
+            cos.write("HTTP/1.1 502 Bad Gateway\r\n\r\n".getBytes(StandardCharsets.UTF_8));
+            cos.flush();
+        }
+        closeQuietly(client);
+        closeQuietly(upstream);
     }
 
     /** 明文 HTTP 转发：重写请求行 + 头，发给上游 */
@@ -138,6 +172,39 @@ public class LocalProxy extends Thread {
         tos.write("\r\n".getBytes(StandardCharsets.UTF_8));
         tos.flush();
         pipe(cis, client.getOutputStream(), target.getInputStream(), target.getOutputStream(), client, target);
+    }
+
+    /** 明文 HTTP 经 v2rayNG 代理：向上游发绝对形式请求行，再透传响应（兜底分支） */
+    private void chainViaProxyHttp(Socket client, OutputStream cos, InputStream cis, String host, int port,
+                                   String firstLine, List<String> headers) throws IOException {
+        Socket upstream = new Socket();
+        upstream.connect(new InetSocketAddress(V2RAY_HOST, V2RAY_PORT), 10000);
+        OutputStream uos = upstream.getOutputStream();
+        String[] m = firstLine.trim().split("\\s+");
+        String method = m.length > 0 ? m[0] : "GET";
+        String absPath = m.length > 1 ? m[1] : "/";
+        String absLine = method + " http://" + host + ":" + port + absPath + " HTTP/1.1";
+        uos.write((absLine + "\r\n").getBytes(StandardCharsets.UTF_8));
+        for (String h : headers) {
+            uos.write((h + "\r\n").getBytes(StandardCharsets.UTF_8));
+        }
+        uos.write("\r\n".getBytes(StandardCharsets.UTF_8));
+        uos.flush();
+        // 把客户端剩余请求体透传给上游
+        byte[] buf = new byte[16384];
+        int n;
+        while ((n = cis.read(buf)) != -1) {
+            uos.write(buf, 0, n);
+            uos.flush();
+        }
+        // 透传上游响应到客户端
+        InputStream uis = upstream.getInputStream();
+        while ((n = uis.read(buf)) != -1) {
+            cos.write(buf, 0, n);
+            cos.flush();
+        }
+        closeQuietly(client);
+        closeQuietly(upstream);
     }
 
     /** 双向字节拷贝；任一侧结束即关闭两侧 */

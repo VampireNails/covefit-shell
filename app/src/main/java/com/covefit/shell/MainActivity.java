@@ -1,14 +1,16 @@
 package com.covefit.shell;
 
 import android.app.Activity;
-import android.net.ProxyConfig;
-import android.net.ProxyController;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.webkit.ProxyConfig;
+import androidx.webkit.ProxyController;
+
+import java.io.IOException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -41,7 +43,7 @@ public class MainActivity extends Activity {
             localProxy = null;
         }
 
-        // 2) 仅本 App 走本地代理（ProxyController 为进程级，不影响其它 App）
+        // 2) 仅本 App 的 WebView 走本地代理（androidx.webkit.ProxyController 进程级，不影响其它 App）
         if (localProxy != null) {
             setAppProxy(LOCAL_PROXY_PORT);
         }
@@ -61,14 +63,16 @@ public class MainActivity extends Activity {
 
     private void setAppProxy(int port) {
         try {
+            // 把本 App 内所有 WebView 的流量导向壳内 LocalProxy（127.0.0.1:8899），
+            // 由 LocalProxy 再做「仅 *.workers.dev 走 v2rayNG」的域名分流。
             ProxyConfig config = new ProxyConfig.Builder()
-                    .addProxyRule("127.0.0.1:" + port)
+                    .addProxyRule("PROXY 127.0.0.1:" + port)
                     .build();
             Executor executor = Executors.newSingleThreadExecutor();
             ProxyController.getInstance().setProxyOverride(config, executor,
                     () -> Log.i(TAG, "app proxy override set -> 127.0.0.1:" + port));
         } catch (Exception e) {
-            Log.e(TAG, "setAppProxy failed", e);
+            Log.e(TAG, "setAppProxy failed (WebView proxy unsupported on this device?)", e);
         }
     }
 

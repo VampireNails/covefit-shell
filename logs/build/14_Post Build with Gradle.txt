@@ -1,0 +1,40 @@
+﻿2026-08-13T07:53:27.6656407Z Post job cleanup.
+2026-08-13T07:53:27.6659781Z ##[start-action display=Setup Gradle;id=__2c1b9854-559f-43c4-9fe7-faee4d4eb13f.setup-gradle]
+2026-08-13T07:53:27.6732004Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-13T07:53:27.6733247Z Post job cleanup.
+2026-08-13T07:53:27.8626867Z ##[warning]This job uses deprecated functionality from the 'gradle/gradle-build-action' action. Consult the Job Summary for more details.
+2026-08-13T07:53:27.8630308Z DEPRECATION: The action `gradle/gradle-build-action` has been replaced by `gradle/actions/setup-gradle`. See https://github.com/gradle/actions/blob/main/docs/deprecation-upgrade-guide.md#the-action-gradlegradle-build-action-has-been-replaced-by-gradleactionssetup-gradle
+2026-08-13T07:53:27.8634523Z DEPRECATION: Using the action to execute Gradle via the `arguments` parameter is deprecated. See https://github.com/gradle/actions/blob/main/docs/deprecation-upgrade-guide.md#using-the-action-to-execute-gradle-via-the-arguments-parameter-is-deprecated
+2026-08-13T07:53:27.8637125Z In post-action step
+2026-08-13T07:53:27.8638705Z Stopping all Gradle daemons before saving Gradle User Home state
+2026-08-13T07:53:27.8640102Z Stopping Gradle daemons for /home/runner/.gradle/wrapper/dists/gradle-8.9-bin/90cnw93cvbtalezasaz0blq0a/gradle-8.9
+2026-08-13T07:53:27.8654279Z (node:2980) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-08-13T07:53:27.8656098Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-08-13T07:53:27.8662995Z [command]/home/runner/.gradle/wrapper/dists/gradle-8.9-bin/90cnw93cvbtalezasaz0blq0a/gradle-8.9/bin/gradle --stop
+2026-08-13T07:53:28.6326377Z Stopping Daemon(s)
+2026-08-13T07:53:28.6496297Z 1 Daemon stopped
+2026-08-13T07:53:28.6698867Z ##[group]Caching Gradle state
+2026-08-13T07:53:28.6867491Z Caching wrapper-zips with path '/home/runner/.gradle/wrapper/dists/gradle-8.9-bin/90cnw93cvbtalezasaz0blq0a' and cache key: gradle-wrapper-zips-v1-df6ecc383658ce44d9cbac4d1bfd12bf
+2026-08-13T07:53:28.7036892Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/covefit-shell/covefit-shell --files-from manifest.txt --use-compress-program zstdmt
+2026-08-13T07:53:28.9526537Z Caching dependencies with path '/home/runner/.gradle/caches/modules-*/files-*/*/*/*/*' and cache key: gradle-dependencies-v1-803086f12aa6aeec24fc4ff43c314cc5
+2026-08-13T07:53:28.9707921Z Caching instrumented-jars with path '/home/runner/.gradle/caches/jars-*/*/' and cache key: gradle-instrumented-jars-v1-f96223e68f8c896ef8dc50933f83a3d5
+2026-08-13T07:53:28.9965385Z Caching groovy-dsl with path '/home/runner/.gradle/caches/*/groovy-dsl/*/' and cache key: gradle-groovy-dsl-v1-aee35481b0a44a327f346bbdbfd58f01
+2026-08-13T07:53:29.0020192Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/covefit-shell/covefit-shell --files-from manifest.txt --use-compress-program zstdmt
+2026-08-13T07:53:29.0691646Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/covefit-shell/covefit-shell --files-from manifest.txt --use-compress-program zstdmt
+2026-08-13T07:53:29.1193666Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/jars-*/*/' and key: gradle-instrumented-jars-v1-f96223e68f8c896ef8dc50933f83a3d5: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0+Xd9agAAAAA3UeQOmZBdSIJ3F87hAkCPTEFYMzExMDAwMTEzMDUxAEVkZ2U=
+2026-08-13T07:53:29.1798440Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/*/groovy-dsl/*/' and key: gradle-groovy-dsl-v1-aee35481b0a44a327f346bbdbfd58f01: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0+Xd9agAAAAACUxPMww07R7b729IZ1cD7TEFYMzExMDAwMTE0MDIxAEVkZ2U=
+2026-08-13T07:53:29.2822315Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/wrapper/dists/gradle-8.9-bin/90cnw93cvbtalezasaz0blq0a' and key: gradle-wrapper-zips-v1-df6ecc383658ce44d9cbac4d1bfd12bf: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0+Xd9agAAAACUfeAGndYKTY1Bat9Eb7pPTEFYMzExMDAwMTExMDQ1AEVkZ2U=
+2026-08-13T07:53:29.3864891Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/covefit-shell/covefit-shell --files-from manifest.txt --use-compress-program zstdmt
+2026-08-13T07:53:29.4053304Z Caching transforms with path '/home/runner/.gradle/caches/transforms-4/*/
+2026-08-13T07:53:29.4055314Z /home/runner/.gradle/caches/*/transforms/*/' and cache key: gradle-transforms-v1-d9de7d75e5722e5e72a50b71dea1f273
+2026-08-13T07:53:29.6646533Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/covefit-shell/covefit-shell --files-from manifest.txt --use-compress-program zstdmt
+2026-08-13T07:53:29.7628967Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/modules-*/files-*/*/*/*/*' and key: gradle-dependencies-v1-803086f12aa6aeec24fc4ff43c314cc5: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0+Xd9agAAAAAeL0yzZ+tmQY++PSyJjZNNTEFYMzExMDAwMTExMDMxAEVkZ2U=
+2026-08-13T07:53:30.2973627Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/transforms-4/*/
+/home/runner/.gradle/caches/*/transforms/*/' and key: gradle-transforms-v1-d9de7d75e5722e5e72a50b71dea1f273: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0+nd9agAAAAC8iIf4GJ4ZQapE87slT/tiTEFYMzExMDAwMTEyMDM1AEVkZ2U=
+2026-08-13T07:53:30.4663959Z Caching Gradle User Home with cache key: gradle-home-v1|Linux|build[ddef187d23c5c0a012a82b60c8f7590e]-3b194a7e5b29377bad34ce2d874711aceafbf74c
+2026-08-13T07:53:30.4767658Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/covefit-shell/covefit-shell --files-from manifest.txt --use-compress-program zstdmt
+2026-08-13T07:53:30.5691447Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches,/home/runner/.gradle/notifications,/home/runner/.gradle/.setup-gradle' and key: gradle-home-v1|Linux|build[ddef187d23c5c0a012a82b60c8f7590e]-3b194a7e5b29377bad34ce2d874711aceafbf74c: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0+nd9agAAAABH8XKREtlKSb8uaWAFcQZLTEFYMzExMDAwMTEwMDMxAEVkZ2U=
+2026-08-13T07:53:30.5694098Z ##[endgroup]
+2026-08-13T07:53:30.5695206Z Generating Job Summary
+2026-08-13T07:53:30.5708833Z Completed post-action step
+2026-08-13T07:53:30.5828679Z ##[end-action id=__2c1b9854-559f-43c4-9fe7-faee4d4eb13f.setup-gradle;outcome=success;conclusion=success;duration_ms=2916]

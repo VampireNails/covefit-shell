@@ -31,5 +31,6 @@ android {
 }
 
 dependencies {
-    // 仅用框架自带 android.webkit.WebView，无需额外依赖
+    // androidx.webkit 提供公开、仅限本 App WebView 的 ProxyController（替代隐藏的 android.net.ProxyController）
+    implementation 'androidx.webkit:webkit:1.11.0'
 }
