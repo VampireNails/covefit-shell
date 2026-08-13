@@ -94,13 +94,21 @@ public class LocalProxy extends Thread {
                     directTunnel(client, cos, cis, host, destPort);
                 }
             } else {
-                // 明文 HTTP（PWA 为 HTTPS，此分支极少触发，仅作兜底）
-                String host = hostLine != null ? hostLine.split(":")[0] : "";
+                // 明文 HTTP（路径A等直连场景会走此分支）
+                String host = "";
                 int destPort = 80;
+                if (hostLine != null) {
+                    String[] hp = hostLine.split(":");
+                    host = hp[0];
+                    if (hp.length > 1) {
+                        try { destPort = Integer.parseInt(hp[1]); } catch (NumberFormatException ignore) {}
+                    }
+                }
                 if (needsProxy(host)) {
                     chainViaProxyHttp(client, cos, cis, host, destPort, firstLine, headers);
                 } else {
-                    forwardHttp(client, cos, cis, host, destPort, firstLine, headers);
+                    // 直连：把绝对形式请求行改写为 origin 形式发给源站
+                    forwardHttp(client, cos, cis, host, destPort, toOriginForm(firstLine), headers);
                 }
             }
         } catch (Exception e) {
@@ -113,6 +121,24 @@ public class LocalProxy extends Thread {
     private boolean needsProxy(String host) {
         return host != null
                 && (host.endsWith(".workers.dev") || "workers.dev".equals(host));
+    }
+
+    /** 把代理收到的绝对形式请求行(GET http://host:port/path)改写为 origin 形式(GET /path)发给源站 */
+    private String toOriginForm(String firstLine) {
+        String[] parts = firstLine.trim().split("\\s+");
+        if (parts.length < 2) return firstLine;
+        String method = parts[0];
+        String target = parts[1];
+        String path;
+        if (target.startsWith("http://") || target.startsWith("https://")) {
+            int schemeEnd = target.indexOf("//");
+            int slash = target.indexOf('/', schemeEnd + 2);
+            path = slash >= 0 ? target.substring(slash) : "/";
+        } else {
+            path = target;
+        }
+        String version = parts.length > 2 ? parts[2] : "HTTP/1.1";
+        return method + " " + path + " " + version;
     }
 
     /** 直连隧道：直接连目标，回 200 后双向拷贝 */

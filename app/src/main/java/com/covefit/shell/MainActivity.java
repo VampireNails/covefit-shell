@@ -1,6 +1,10 @@
 package com.covefit.shell;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebSettings;
@@ -28,6 +32,20 @@ public class MainActivity extends Activity {
 
     private WebView webView;
     private LocalProxy localProxy;
+
+    /** 测试钩子：adb shell am broadcast -a com.covefit.shell.LOAD_URL --es url "http://<pc-tailscale-ip>:8788/" */
+    private final BroadcastReceiver urlReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if ("com.covefit.shell.LOAD_URL".equals(intent.getAction())) {
+                String url = intent.getStringExtra("url");
+                if (url != null && webView != null) {
+                    Log.i(TAG, "LOAD_URL broadcast -> " + url);
+                    webView.loadUrl(url);
+                }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +77,9 @@ public class MainActivity extends Activity {
         ws.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(PWA_URL);
+
+        // 注册测试钩子（仅响应特定 action，生产无副作用）：用于真机验证路径A等直连地址
+        registerReceiver(urlReceiver, new IntentFilter("com.covefit.shell.LOAD_URL"));
     }
 
     private void setAppProxy(int port) {
@@ -102,6 +123,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         if (localProxy != null) localProxy.stopProxy();
+        try { unregisterReceiver(urlReceiver); } catch (Exception ignore) {}
         super.onDestroy();
     }
 }

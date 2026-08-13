@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <!-- 允许壳内本地转发代理使用明文（127.0.0.1）-->
+    <!--
+      默认放行明文。
+      原因：路径A(手机壳App直连PC控制面 http://<pc-tailscale-ip>:8788)走 Tailscale 私网，
+      传输层已由 WireGuard 加密，应用层 HTTP 明文在隧道内是安全的。
+      Android <domain> 仅支持主机名、不支持 IP/CIDR，而 PC 的 Tailscale IP 属动态网段，
+      故用 base-config 全局放行明文（HTTPS 仍走系统 CA，不受影响）。
+    -->
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+    <!-- 壳内本地转发代理(127.0.0.1:8899)走明文，兜底保留 -->
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">127.0.0.1</domain>
         <domain includeSubdomains="true">localhost</domain>
