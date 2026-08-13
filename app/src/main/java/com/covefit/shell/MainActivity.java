@@ -62,18 +62,32 @@ public class MainActivity extends Activity {
     }
 
     private void setAppProxy(int port) {
-        try {
-            // 把本 App 内所有 WebView 的流量导向壳内 LocalProxy（127.0.0.1:8899），
-            // 由 LocalProxy 再做「仅 *.workers.dev 走 v2rayNG」的域名分流。
-            ProxyConfig config = new ProxyConfig.Builder()
-                    .addProxyRule("PROXY 127.0.0.1:" + port)
-                    .build();
-            Executor executor = Executors.newSingleThreadExecutor();
-            ProxyController.getInstance().setProxyOverride(config, executor,
-                    () -> Log.i(TAG, "app proxy override set -> 127.0.0.1:" + port));
-        } catch (Exception e) {
-            Log.e(TAG, "setAppProxy failed (WebView proxy unsupported on this device?)", e);
+        // 不同 WebView 实现接受的 proxy rule 格式不同：
+        //  - AOSP / 标准 WebView： "PROXY 127.0.0.1:8899"
+        //  - 华为 HwWebview 等 OEM： "127.0.0.1:8899"（带 "PROXY " 前缀会被拒）
+        // setProxyOverride 在格式不被接受时会同步抛 IllegalArgumentException，这里逐一重试。
+        String[] candidates = {
+                "PROXY 127.0.0.1:" + port,
+                "127.0.0.1:" + port
+        };
+        for (String rule : candidates) {
+            try {
+                ProxyConfig config = new ProxyConfig.Builder()
+                        .addProxyRule(rule)
+                        .build();
+                Executor executor = Executors.newSingleThreadExecutor();
+                ProxyController.getInstance().setProxyOverride(config, executor,
+                        () -> Log.i(TAG, "app proxy override set -> " + rule));
+                Log.i(TAG, "setAppProxy OK with rule: " + rule);
+                return;
+            } catch (IllegalArgumentException e) {
+                Log.w(TAG, "setAppProxy rejected rule '" + rule + "': " + e.getMessage());
+            } catch (Exception e) {
+                Log.e(TAG, "setAppProxy failed (WebView proxy unsupported on this device?)", e);
+                return;
+            }
         }
+        Log.e(TAG, "setAppProxy: no acceptable proxy rule format for this WebView");
     }
 
     @Override
