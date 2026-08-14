@@ -39,6 +39,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    // 开启 BuildConfig 生成（AGP 8.x 默认关闭），供 MainActivity 按 build 类型开放 WebView 调试
+    buildFeatures {
+        buildConfig true
+    }
 }
 
 dependencies {
