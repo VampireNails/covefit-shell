@@ -52,6 +52,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 真机 UI 自动化调试：开放 Chrome DevTools Protocol，便于 adb/DevTools 注入令牌与点击。
+        // 仅 debug 构建生效（CI 发布 app-debug.apk），release 构建不会开启，避免生产面暴露。
+        WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
+
         // 1) 壳内本地转发代理（域名分流）
         try {
             localProxy = new LocalProxy(LOCAL_PROXY_PORT);
